@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+bryan_buckets () {
+    : commands for s3 bucket control
+    : SUBCMD args
+    local bb_cmd=${FUNCNAME}
+    local bb_sub=${FUNCNAME}_$1
+    local bb_help=${FUNCNAME}_help
+    local bb_name=$2
+    local bb_local=${BRYAN_BUCKETS_LOCAL}/${bb_name}
+    local bb_remote=s3://${bb_name}
+    shift 2
+    declare -F ${bb_sub} && {
+        ${bb_sub} $@
+        return $?
+    }
+    bryan-bashfn-usage ${FUNCNAME}
+}
+
+bryan_buckets_list () {
+    : list
+    aws s3 ls
+}
+
+bryan_buckets_up () {
+    echo "[LOCAL/${bb_name}] -> [${bb_remote}]"
+    echo aws s3 sync $bb_local $bb_remote $@
+     aws s3 sync $bb_local $bb_remote $@
+}
+bryan_buckets_down () {
+    echo "[${bb_remote}] -> [LOCAL/${bb_name}]"
+    aws s3 sync $bb_remote $bb_local $@
+}
+bryan_buckets_go () {
+    pushd ${bb_local} > /dev/null
+}
+

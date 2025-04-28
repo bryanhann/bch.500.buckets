@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+export BRYAN_BUCKETS_LOCAL=/__PUMPKIN__/__BUCKETS__
