@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 bryan_buckets () {
+    echo 77777777 $*
     : commands for s3 bucket control
     : SUBCMD args
     local bb_cmd=${FUNCNAME}
@@ -14,7 +15,8 @@ bryan_buckets () {
         ${bb_sub} $@
         return $?
     }
-    bryan-bashfn-usage ${FUNCNAME}
+    :fhelp ${FUNCNAME}
+    #bryan-bashfn-usage ${FUNCNAME}
 }
 
 bryan_buckets_list () {
